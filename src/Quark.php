@@ -15,7 +15,7 @@ class Quark
      */
     public static function version()
     {
-        return 'v1.0.34';
+        return 'v1.0.37';
     }
 
     /**
@@ -50,6 +50,7 @@ class Quark
 
         $layout->title(config('admin.name'));
         $layout->logo(config('admin.logo'));
+        $layout->headerActions(config('admin.layout.header_actions'));
         $layout->layout(config('admin.layout.layout'));
         $layout->splitMenus(config('admin.layout.split_menus'));
         $layout->headerTheme(config('admin.layout.header_theme'));
