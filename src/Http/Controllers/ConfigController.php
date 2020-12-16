@@ -68,12 +68,18 @@ class ConfigController extends Controller
                                 ->value($config['value']);
                                 break;
                             case 'switch':
+                                if($config['value'] === '0') {
+                                    $value = false;
+                                } else {
+                                    $value = true;
+                                }
+
                                 $form->switch($config['name'],$config['title'])
                                 ->extra($config['remark'])
                                 ->options([
                                     'on'  => '开启',
                                     'off' => '关闭'
-                                ])->value($config['value']);
+                                ])->value($value);
 
                                 break;
                             case 'picture':
@@ -326,6 +332,15 @@ class ConfigController extends Controller
             'on'  => '正常',
             'off' => '禁用'
         ])->default(true);
+
+        // 保存数据后回调
+        $form->saved(function ($form) {
+            if($form->model()) {
+                return success('操作成功！',frontend_url('admin/config/index'));
+            } else {
+                return error('操作失败，请重试！');
+            }
+        });
 
         return $form;
     }
